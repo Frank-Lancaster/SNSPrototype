@@ -1,10 +1,20 @@
-from flask import Flask
+from flask import Flask, jsonify, request
 
 app = Flask(__name__)
 
-@app.route('/')
+@app.route('/', methods=['GET', 'POST'])
 def index():
-    return "SNS Index"
+    if (request.method == 'POST'):
+        some_json = request.get_json()
+        return jsonify({'You sent': some_json}), 201
+    else:
+        return jsonify({"about":"SNS Index prototype"})
+
+@app.route('/multi/<int:num>', methods=['GET'])
+def get_multiply10(num):
+    return jsonify({'result': num*10})
+
+
 
 if __name__ == "__main__":
     app.run(debug=True)
