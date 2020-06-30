@@ -12,9 +12,9 @@ def index():
 
 @app.route('/multi/<int:num>', methods=['GET'])
 def get_multiply10(num):
-    return jsonify({'result': num*10})
-
-
+    response = jsonify({'result': num*10})
+    response.headers.add('Access-Control-Allow-Origin', '*')
+    return response
 
 if __name__ == "__main__":
     app.run(debug=True)
